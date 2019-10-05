@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 public class HomePageSteps {
 
     private HomePage homePage;
+    private String destination;
 
     public HomePageSteps(){
         this.homePage = new HomePage();
@@ -18,14 +19,16 @@ public class HomePageSteps {
     @When("User fill input with location \"([^\"]*)\"")
     public void user_fill_input_with_location_Gdansk(String location) {
         this.homePage.fillDestinationInput(location);
+        this.destination = this.homePage.chooseElement();
     }
 
     @Then("check location data \"([^\"]*)\"")
     public void check_location_data_Gdansk(String location) {
-        try {
-            this.homePage.checkDestinationInput(location);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if(!this.destination.equals("Gdańsk\nPomerania, Poland"))
+            try {
+                throw new Exception("Chosen element is wrong. It's " + this.destination + " and should be Gdańsk, Pomerania, Poland");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 }

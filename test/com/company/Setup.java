@@ -12,8 +12,8 @@ public class Setup {
     public static WebDriver setDriver() {
         System.setProperty("webdriver.gecko.driver", FIREFOX_PATH);
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("start-maximized");
         FirefoxDriver driver = new FirefoxDriver(options);
+        driver.manage().window().maximize();
         return driver;
     }
 }
